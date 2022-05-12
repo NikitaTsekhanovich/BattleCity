@@ -33,7 +33,7 @@ class Player_Tank():
     def move_next(self):
         if self.moving_right and self.ai_settings.screen_width - self.width_player != self.rect.x:
             self.rect.x += 1
-            self.image = self.image_right
+            # self.image = self.image_right
             # if flag:
             #     self.rotate_tank(270)
         elif self.moving_left and self.rect.x != 0:
