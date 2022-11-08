@@ -4,9 +4,12 @@ from fire_player_tank import Fire_player
 from fire_enemy_tank_predator import Fire_predator
 from fire_enemy_tank_hulk import Fire_hulk
 from fire_enemy_tank_crazy import Fire_crazy
+import auto_save as sv
 
 
-def check_keydown_events(event, ai_settings, screen, player_tank, bullets_player):
+def check_keydown_events(event, ai_settings, screen, player_tank, bullets_player,
+                         enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
+                         enemy_tank_crazy, current_level, blocks):
     if event.key == pygame.K_d or \
             event.key == pygame.K_RIGHT:
         player_tank.moving_right = True
@@ -24,6 +27,8 @@ def check_keydown_events(event, ai_settings, screen, player_tank, bullets_player
         player_tank.moving_up = True
 
     elif event.key == pygame.K_ESCAPE:
+        sv.auto_save(player_tank, enemy_tank_predator, enemy_tank_hulk,
+                     enemy_tank_kamikaze, enemy_tank_crazy, current_level, blocks)
         sys.exit()
 
     elif event.key == pygame.K_SPACE:
@@ -69,12 +74,16 @@ def check_keyup_events(event, player_tank):
         player_tank.moving_up = False
 
 
-def check_events(ai_settings, screen, player_tank, bullets):
+def check_events(ai_settings, screen, player_tank, bullets,
+                 enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
+                 enemy_tank_crazy, current_level, blocks):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ai_settings, screen, player_tank, bullets)
+            check_keydown_events(event, ai_settings, screen, player_tank, bullets,
+                                 enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
+                                 enemy_tank_crazy, current_level, blocks)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, player_tank)
 

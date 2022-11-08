@@ -3,7 +3,6 @@ from pygame.sprite import Sprite
 
 
 class Player_tank(Sprite):
-
     def __init__(self, ai_settings, screen):
         super().__init__()
         self.screen = screen

@@ -13,6 +13,7 @@ from enemy_tank_kamikaze import Kamikaze_tank
 from enemy_tank_crazy import Crazy_tank
 import game_functions as gf
 import time
+import auto_save as sv
 
 
 def run_game(run):
@@ -22,7 +23,11 @@ def run_game(run):
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Battle City")
 
-    current_level = 1
+    save_data = sv.get_data_save()
+    if save_data[0] == "auto save":
+        current_level = int(save_data[11])
+    else:
+        current_level = 1
     blocks = Block(screen, current_level)
 
     bonus_attribute = Bonus_attribute(ai_settings, screen)
@@ -45,8 +50,32 @@ def run_game(run):
     enemy_tank_crazy = Crazy_tank(ai_settings, screen, bullets_enemy_tank_crazy)
     all_tanks = Group(player_tank, enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze, enemy_tank_crazy)
 
+    if save_data[0] == "auto save":
+        player_tank.rect.x = float(save_data[1])
+        player_tank.rect.y = float(save_data[2])
+        player_tank.x = float(save_data[1])
+        player_tank.y = float(save_data[2])
+        enemy_tank_predator.rect.x = float(save_data[3])
+        enemy_tank_predator.rect.y = float(save_data[4])
+        enemy_tank_predator.x = float(save_data[3])
+        enemy_tank_predator.y = float(save_data[4])
+        enemy_tank_hulk.rect.x = float(save_data[5])
+        enemy_tank_hulk.rect.y = float(save_data[6])
+        enemy_tank_hulk.x = float(save_data[5])
+        enemy_tank_hulk.y = float(save_data[6])
+        enemy_tank_kamikaze.rect.x = float(save_data[7])
+        enemy_tank_kamikaze.rect.y = float(save_data[8])
+        enemy_tank_kamikaze.x = float(save_data[7])
+        enemy_tank_kamikaze.y = float(save_data[8])
+        enemy_tank_crazy.rect.x = float(save_data[9])
+        enemy_tank_crazy.rect.y = float(save_data[10])
+        enemy_tank_crazy.x = float(save_data[9])
+        enemy_tank_crazy.y = float(save_data[10])
+
     while run:
-        gf.check_events(ai_settings, screen, player_tank, bullets_player)
+        gf.check_events(ai_settings, screen, player_tank, bullets_player,
+                        enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
+                        enemy_tank_crazy, current_level, blocks)
 
         for tank in all_tanks:
             if tank == player_tank:
@@ -105,6 +134,7 @@ def run_game(run):
             all_tanks.add(enemy_tank_crazy)
 
         if not (castle in castle_group) or not (player_tank in all_tanks):
+            sv.dont_save()
             break
 
         if ai_settings.enemy_tank_predator_life == 0 and \
@@ -112,6 +142,7 @@ def run_game(run):
                 ai_settings.enemy_tank_kamikaze_life == 0 and \
                 ai_settings.enemy_tank_crazy_life == 0:
             time.sleep(5)
+            sv.dont_save()
             current_level += 1
             blocks = Block(screen, current_level)
             castle = Castle(screen)
