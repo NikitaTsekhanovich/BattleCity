@@ -7,7 +7,7 @@ from pygame.sprite import Sprite
 
 class Crazy_tank(Sprite):
 
-    def __init__(self, ai_settings, screen, bullets_tank):
+    def __init__(self, ai_settings, screen, bullets_tank, save_data):
         super().__init__()
         self.screen = screen
         self.ai_settings = ai_settings
@@ -31,15 +31,21 @@ class Crazy_tank(Sprite):
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.spawn_position = int(random.uniform(0, 3))
-        if self.spawn_position == 0:
-            self.rect.x = self.ai_settings.enemy_tank_pos_x
-            self.rect.y = self.ai_settings.enemy_tank_pos_y
-        elif self.spawn_position == 1:
-            self.rect.x = 192
-            self.rect.y = self.ai_settings.enemy_tank_pos_y
+        if save_data[0] == "auto save":
+            self.rect.x = float(save_data[9])
+            self.rect.y = float(save_data[10])
+            self.x = float(save_data[9])
+            self.y = float(save_data[10])
         else:
-            self.rect.x = 384
-            self.rect.y = self.ai_settings.enemy_tank_pos_y
+            if self.spawn_position == 0:
+                self.rect.x = self.ai_settings.enemy_tank_pos_x
+                self.rect.y = self.ai_settings.enemy_tank_pos_y
+            elif self.spawn_position == 1:
+                self.rect.x = 192
+                self.rect.y = self.ai_settings.enemy_tank_pos_y
+            else:
+                self.rect.x = 384
+                self.rect.y = self.ai_settings.enemy_tank_pos_y
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
         self.width = 26

@@ -6,7 +6,7 @@ import BattleCity as bs
 
 def Menu():
     pygame.init()
-    ai_settings = Settings()
+    ai_settings = Settings("dont save")
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Battle City")

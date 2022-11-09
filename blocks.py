@@ -6,7 +6,7 @@ class Block():
 
     (TILE_EMPTY, TILE_BRICK, TILE_STEEL, TILE_WATER, TILE_GRASS, TILE_FROZE) = range(6)
 
-    def __init__(self, screen, current_level):
+    def __init__(self, screen, current_level, save_data):
         self.screen = screen
         self.path_file = "levels/"
         if current_level > 35:
@@ -42,22 +42,28 @@ class Block():
         self.tile_froze = tile_images[6]
         self.mapr = []
         self.tile_size = 16
-        x, y = 0, 0
-        for row in data:
-            for ch in row:
-                if ch == "#":
-                    self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_BRICK))
-                elif ch == "@":
-                    self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_STEEL))
-                elif ch == "~":
-                    self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_WATER))
-                elif ch == "%":
-                    self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_GRASS))
-                elif ch == "-":
-                    self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_FROZE))
-                x += self.tile_size
-            x = 0
-            y += self.tile_size
+        if save_data[0] == "auto save":
+            for i in range(2, int(save_data[1])):
+                block_characteristics = save_data[i].split(" ")
+                self.mapr.append(myRect(int(block_characteristics[0]), int(block_characteristics[1]),
+                                        self.tile_size, self.tile_size, int(block_characteristics[2])))
+        else:
+            x, y = 0, 0
+            for row in data:
+                for ch in row:
+                    if ch == "#":
+                        self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_BRICK))
+                    elif ch == "@":
+                        self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_STEEL))
+                    elif ch == "~":
+                        self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_WATER))
+                    elif ch == "%":
+                        self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_GRASS))
+                    elif ch == "-":
+                        self.mapr.append(myRect(x, y, self.tile_size, self.tile_size, self.TILE_FROZE))
+                    x += self.tile_size
+                x = 0
+                y += self.tile_size
 
     def draw(self):
         (TILE_EMPTY, TILE_BRICK, TILE_STEEL, TILE_WATER, TILE_GRASS, TILE_FROZE) = range(6)

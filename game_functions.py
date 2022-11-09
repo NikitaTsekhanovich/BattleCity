@@ -4,7 +4,7 @@ from fire_player_tank import Fire_player
 from fire_enemy_tank_predator import Fire_predator
 from fire_enemy_tank_hulk import Fire_hulk
 from fire_enemy_tank_crazy import Fire_crazy
-import auto_save as sv
+import auto_save_system as sv
 
 
 def check_keydown_events(event, ai_settings, screen, player_tank, bullets_player,
@@ -28,7 +28,8 @@ def check_keydown_events(event, ai_settings, screen, player_tank, bullets_player
 
     elif event.key == pygame.K_ESCAPE:
         sv.auto_save(player_tank, enemy_tank_predator, enemy_tank_hulk,
-                     enemy_tank_kamikaze, enemy_tank_crazy, current_level, blocks)
+                     enemy_tank_kamikaze, enemy_tank_crazy, current_level, blocks,
+                     ai_settings)
         sys.exit()
 
     elif event.key == pygame.K_SPACE:

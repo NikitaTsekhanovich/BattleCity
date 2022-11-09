@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 
 
 class Player_tank(Sprite):
-    def __init__(self, ai_settings, screen):
+    def __init__(self, ai_settings, screen, save_data):
         super().__init__()
         self.screen = screen
         self.ai_settings = ai_settings
@@ -15,10 +15,17 @@ class Player_tank(Sprite):
         self.image_right = pygame.transform.rotate(self.image, 270)
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
-        self.rect.x = self.ai_settings.player_tank_pos_x
-        self.rect.y = self.ai_settings.player_tank_pos_y
-        self.x = float(self.ai_settings.player_tank_pos_x)
-        self.y = float(self.ai_settings.player_tank_pos_y)
+        if save_data[0] == "auto save":
+            self.rect.x = float(save_data[1])
+            self.rect.y = float(save_data[2])
+            self.x = float(save_data[1])
+            self.y = float(save_data[2])
+        else:
+            self.rect.x = self.ai_settings.player_tank_pos_x
+            self.rect.y = self.ai_settings.player_tank_pos_y
+            self.x = float(self.ai_settings.player_tank_pos_x)
+            self.y = float(self.ai_settings.player_tank_pos_y)
+
         self.width_player = 26
         self.height_player = 26
         self.moving_right = False
