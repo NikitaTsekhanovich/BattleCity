@@ -9,7 +9,9 @@ import auto_save_system as sv
 
 def check_keydown_events(event, ai_settings, screen, player_tank, bullets_player,
                          enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
-                         enemy_tank_crazy, current_level, blocks):
+                         enemy_tank_crazy, current_level, blocks, cheats):
+    cheats.cheat_check(ai_settings, event)
+
     if event.key == pygame.K_d or \
             event.key == pygame.K_RIGHT:
         player_tank.moving_right = True
@@ -77,14 +79,14 @@ def check_keyup_events(event, player_tank):
 
 def check_events(ai_settings, screen, player_tank, bullets,
                  enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
-                 enemy_tank_crazy, current_level, blocks):
+                 enemy_tank_crazy, current_level, blocks, cheats):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ai_settings, screen, player_tank, bullets,
                                  enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
-                                 enemy_tank_crazy, current_level, blocks)
+                                 enemy_tank_crazy, current_level, blocks, cheats)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, player_tank)
 

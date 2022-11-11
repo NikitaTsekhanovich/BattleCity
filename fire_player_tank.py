@@ -69,7 +69,7 @@ class Fire_player(Sprite):
                 if block[0] <= self.player_tank_fire_x <= block[0] + 16 and \
                         abs(block[1] - self.player_tank_fire_y) <= 16 and \
                         (player_tank.moving_look_up or player_tank.moving_look_down):
-                    if block.type == 2 and self.ai_settings.player_tank_bullet_damage != 3:
+                    if block.type == 2 and self.ai_settings.player_tank_bullet_damage < 3:
                         self.delete_bullet(bullets, True)
                         break
                     blocks.mapr.pop(blocks.mapr.index(block))

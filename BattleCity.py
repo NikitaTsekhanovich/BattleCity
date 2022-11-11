@@ -14,6 +14,7 @@ from enemy_tank_crazy import Crazy_tank
 import game_functions as gf
 import time
 import auto_save_system as sv
+from cheats import Cheats
 
 
 def run_game(run):
@@ -21,6 +22,7 @@ def run_game(run):
     save_data_tanks = sv.get_data_save_tanks()
     save_data_blocks = sv.get_data_save_blocks()
     ai_settings = Settings(save_data_tanks)
+    cheats = Cheats()
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Battle City")
@@ -54,7 +56,7 @@ def run_game(run):
     while run:
         gf.check_events(ai_settings, screen, player_tank, bullets_player,
                         enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
-                        enemy_tank_crazy, current_level, blocks)
+                        enemy_tank_crazy, current_level, blocks, cheats)
 
         for tank in all_tanks:
             if tank == player_tank:
