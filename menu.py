@@ -2,6 +2,7 @@ import pygame
 from settings import Settings
 import pygame_menu
 import BattleCity as bs
+import editor.level_editor as ll
 
 
 def Menu():
@@ -14,12 +15,17 @@ def Menu():
     main_theme.set_background_color_opacity(0.0)
     menu = pygame_menu.Menu('', 480, 416, theme=main_theme)
     menu.add.button('Play', start_the_game)
+    menu.add.button('Level editor', load_level_editor)
     menu.add.button('Quit', pygame_menu.events.EXIT)
     menu.mainloop(screen)
 
 
 def start_the_game():
     bs.run_game(True)
+
+
+def load_level_editor():
+    ll.level_editor()
 
 
 Menu()

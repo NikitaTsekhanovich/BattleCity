@@ -37,8 +37,8 @@ class Block():
         self.tile_steel = tile_images[2]
         self.tile_grass = tile_images[3]
         self.tile_water = tile_images[4]
-        self.tile_water1 = tile_images[4]
-        self.tile_water2 = tile_images[5]
+        # self.tile_water1 = tile_images[4]
+        # self.tile_water2 = tile_images[5]
         self.tile_froze = tile_images[6]
         self.mapr = []
         self.tile_size = 16
