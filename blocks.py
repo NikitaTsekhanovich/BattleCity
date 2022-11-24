@@ -1,5 +1,6 @@
 import pygame
 import sys
+from pathlib import Path
 
 
 class Block():
@@ -8,12 +9,14 @@ class Block():
 
     def __init__(self, screen, current_level, save_data):
         self.screen = screen
-        self.path_file = "levels/"
-        if current_level > 35:
+        self.path_file = Path(r"C:\Users\honor\source\repos\BattleCity\levels")
+        self.count_levels = sum(1 for x in self.path_file.iterdir())
+
+        if current_level > self.count_levels:
             current_level = 1
 
         try:
-            self.level = open(f'{self.path_file}{current_level}', 'r')
+            self.level = open(f'{self.path_file}\{current_level}', 'r')
         except Exception:
             print("Поврежден файл игры")
             sys.exit()

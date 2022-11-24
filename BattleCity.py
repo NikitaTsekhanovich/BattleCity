@@ -15,6 +15,8 @@ import game_functions as gf
 import time
 import auto_save_system as sv
 from cheats import Cheats
+# добавил переход на след. уровень (добавил в cheats и в battlecity)
+# сохранение уровня в levels (добавил в level_editor_func..)
 
 
 def run_game(run):
@@ -118,10 +120,12 @@ def run_game(run):
             sv.dont_save()
             break
 
-        if ai_settings.enemy_tank_predator_life == 0 and \
-                ai_settings.enemy_tank_hulk_life == 0 and \
-                ai_settings.enemy_tank_kamikaze_life == 0 and \
-                ai_settings.enemy_tank_crazy_life == 0:
+        if (ai_settings.enemy_tank_predator_life == 0 and
+            ai_settings.enemy_tank_hulk_life == 0 and
+            ai_settings.enemy_tank_kamikaze_life == 0 and
+            ai_settings.enemy_tank_crazy_life == 0) or \
+                (cheats.input == "next"):
+            cheats.input = ""
             time.sleep(5)
             sv.dont_save()
             current_level += 1

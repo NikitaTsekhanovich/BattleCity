@@ -6,6 +6,7 @@ class Cheats():
     def __init__(self):
         self.cheat_damage_bullet_speed = "hesoyam"
         self.cheat_move_speed = "forsaj"
+        self.cheat_next_level = "next"
         self.input = ""
 
     def cheat_check(self, ai_settings, event):
@@ -15,6 +16,24 @@ class Cheats():
         if self.input == self.cheat_move_speed:
             ai_settings.player_tank_acceleration = 0.2
             ai_settings.player_tank_life = 5
+
+        elif (event.key == pygame.K_n or
+              event.key == pygame.K_UP) and \
+                self.input == "":
+            self.input = "n"
+            print(self.input)
+
+        elif (event.key == pygame.K_x or
+              event.key == pygame.K_UP) and \
+                self.input == "ne":
+            self.input += "x"
+            print(self.input)
+
+        elif (event.key == pygame.K_t or
+              event.key == pygame.K_UP) and \
+                self.input == "nex":
+            self.input += "t"
+            print(self.input)
 
         elif (event.key == pygame.K_f or
               event.key == pygame.K_UP) and \
@@ -42,7 +61,7 @@ class Cheats():
 
         elif (event.key == pygame.K_e or
               event.key == pygame.K_UP) and \
-                self.input == "h":
+                (self.input == "h" or self.input == "n"):
             self.input += "e"
             print(self.input)
 

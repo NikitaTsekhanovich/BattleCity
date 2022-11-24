@@ -1,5 +1,7 @@
 import pygame
 import sys
+import os
+from pathlib import Path
 from editor.level_editor_button_brick import ButtonBrick
 from editor.level_editor_button_froze import ButtonFroze
 from editor.level_editor_button_water import ButtonWater
@@ -79,6 +81,15 @@ def save_game_field(game_field):
         for y in range(26):
             new_level.write(game_field[x][y])
     new_level.close()
+
+    path = r'C:\Users\honor\source\repos\BattleCity\levels'
+    path_copy = r"C:\Users\honor\source\repos\BattleCity\editor"
+    folder = Path(path)
+    if not folder.is_dir():
+        raise ValueError(f"[{folder}] не существует или не является директорией")
+    count_levels = sum(1 for x in folder.iterdir())
+    os.system(f'copy {path_copy}\\new_level {path}')
+    os.rename(f'{path}\\new_level', f'{path}\{count_levels + 1}')
 
 
 def check_mouse_click_buttons(button_brick, button_froze, button_water,
