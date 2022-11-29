@@ -40,29 +40,35 @@ class Player_tank(Sprite):
     def update(self, blocks, all_tanks, player_tank,
                bonus_attribute, bonus_damage, bonus_lives, bonuses_group):
         self.move_next(blocks)
-        self.check_bonuses(bonus_attribute, bonus_damage, bonus_lives, bonuses_group)
-
-    def check_bonuses(self, bonus_attribute, bonus_damage, bonus_lives, bonuses_group):
         for bonus in bonuses_group:
             if bonus_attribute == bonus:
-                if bonus.rect.x < self.x + self.width_player <= bonus.rect.x + 32 and \
-                        abs(bonus.rect.y - self.y) <= 32 or bonus.rect.x < self.x <= bonus.rect.x + 32 and \
-                        abs(bonus.rect.y - self.y) <= 32:
-                    bonus.kill()
-                    self.ai_settings.player_tank_acceleration += bonus.acceleration
-                    self.ai_settings.player_tank_bullet_speed += bonus.bullet_speed
+                self.check_bonus_attribute(bonus)
             if bonus_damage == bonus:
-                if bonus.rect.x < self.x + self.width_player <= bonus.rect.x + 32 and \
-                        abs(bonus.rect.y - self.y) <= 32 or bonus.rect.x < self.x <= bonus.rect.x + 32 and \
-                        abs(bonus.rect.y - self.y) <= 32:
-                    bonus.kill()
-                    self.ai_settings.player_tank_bullet_damage += bonus.bullet_damage
+                self.check_bonus_damage(bonus)
             if bonus_lives == bonus:
-                if bonus.rect.x < self.x + self.width_player <= bonus.rect.x + 32 and \
-                        abs(bonus.rect.y - self.y) <= 32 or bonus.rect.x < self.x <= bonus.rect.x + 32 and \
-                        abs(bonus.rect.y - self.y) <= 32:
-                    bonus.kill()
-                    self.ai_settings.player_tank_life += bonus.lives
+                self.check_bonus_lives(bonus)
+
+    def check_bonus_attribute(self, bonus):
+        if bonus.rect.x < self.x + self.width_player <= bonus.rect.x + 32 and \
+                abs(bonus.rect.y - self.y) <= 32 or bonus.rect.x < self.x <= bonus.rect.x + 32 and \
+                abs(bonus.rect.y - self.y) <= 32:
+            bonus.kill()
+            self.ai_settings.player_tank_acceleration += bonus.acceleration
+            self.ai_settings.player_tank_bullet_speed += bonus.bullet_speed
+
+    def check_bonus_damage(self, bonus):
+        if bonus.rect.x < self.x + self.width_player <= bonus.rect.x + 32 and \
+                abs(bonus.rect.y - self.y) <= 32 or bonus.rect.x < self.x <= bonus.rect.x + 32 and \
+                abs(bonus.rect.y - self.y) <= 32:
+            bonus.kill()
+            self.ai_settings.player_tank_bullet_damage += bonus.bullet_damage
+
+    def check_bonus_lives(self, bonus):
+        if bonus.rect.x < self.x + self.width_player <= bonus.rect.x + 32 and \
+                abs(bonus.rect.y - self.y) <= 32 or bonus.rect.x < self.x <= bonus.rect.x + 32 and \
+                abs(bonus.rect.y - self.y) <= 32:
+            bonus.kill()
+            self.ai_settings.player_tank_life += bonus.lives
 
     def move_next(self, blocks):
         if self.moving_right and self.ai_settings.screen_width - self.width_player - 64 != self.rect.x:
