@@ -15,8 +15,6 @@ import game_functions as gf
 import time
 import auto_save_system as sv
 from cheats import Cheats
-# добавил переход на след. уровень (добавил в cheats и в battlecity)
-# сохранение уровня в levels (добавил в level_editor_func..)
 
 
 def run_game(run):

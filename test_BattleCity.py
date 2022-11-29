@@ -1,8 +1,8 @@
 import unittest
 import os
 import pygame
+from bonus_attribute import Bonus_attribute
 from settings import Settings
-from blocks import Block
 
 
 class Test_blocks(unittest.TestCase):
@@ -10,8 +10,9 @@ class Test_blocks(unittest.TestCase):
         settings = Settings("dont save")
         screen = pygame.display.set_mode(
             (settings.screen_width, settings.screen_height))
-        block = Block(screen, 1, "dont save")
-        self.assertTrue(os.path.exists(block.path_file))
+        a = Bonus_attribute(settings, screen)
+        b = a.draw()
+        self.assertTrue(b, True)
 
 
 if __name__ == '__main__':
