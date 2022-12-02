@@ -11,10 +11,10 @@ from bonus_lives import Bonus_lives
 from enemy_tank_hulk import Hulk_tank
 from enemy_tank_kamikaze import Kamikaze_tank
 from enemy_tank_crazy import Crazy_tank
+from cheats import Cheats
 import game_functions as gf
 import time
 import auto_save_system as sv
-from cheats import Cheats
 
 
 def run_game(run):
@@ -118,22 +118,34 @@ def run_game(run):
             sv.dont_save()
             break
 
-        if (ai_settings.enemy_tank_predator_life == 0 and
-            ai_settings.enemy_tank_hulk_life == 0 and
-            ai_settings.enemy_tank_kamikaze_life == 0 and
-            ai_settings.enemy_tank_crazy_life == 0) or \
-                (cheats.input == "next"):
-            cheats.input = ""
-            time.sleep(5)
-            sv.dont_save()
-            current_level += 1
-            blocks = Block(screen, current_level, "dont save")
-            castle = Castle(screen)
-            castle_group = Group(castle)
-            player_tank = Player_tank(ai_settings, screen, "dont save")
-            enemy_tank_predator = Predator_tank(ai_settings, screen, bullets_enemy_tank_predator, "dont save")
-            enemy_tank_hulk = Hulk_tank(ai_settings, screen, bullets_enemy_tank_hulk, "dont save")
-            enemy_tank_kamikaze = Kamikaze_tank(ai_settings, screen, "dont save")
-            enemy_tank_crazy = Crazy_tank(ai_settings, screen, bullets_enemy_tank_crazy, "dont save")
-            all_tanks = Group(player_tank, enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze, enemy_tank_crazy)
-            ai_settings = Settings("dont save")
+        ai_settings, all_tanks, blocks, castle, castle_group, current_level, enemy_tank_crazy, enemy_tank_hulk, \
+        enemy_tank_kamikaze, enemy_tank_predator, player_tank = next_level(
+            ai_settings, all_tanks, blocks, bullets_enemy_tank_crazy, bullets_enemy_tank_hulk,
+            bullets_enemy_tank_predator, castle, castle_group, cheats, current_level, enemy_tank_crazy, enemy_tank_hulk,
+            enemy_tank_kamikaze, enemy_tank_predator, player_tank, screen)
+
+
+def next_level(ai_settings, all_tanks, blocks, bullets_enemy_tank_crazy, bullets_enemy_tank_hulk,
+               bullets_enemy_tank_predator, castle, castle_group, cheats, current_level, enemy_tank_crazy,
+               enemy_tank_hulk, enemy_tank_kamikaze, enemy_tank_predator, player_tank, screen):
+    if (ai_settings.enemy_tank_predator_life == 0 and
+        ai_settings.enemy_tank_hulk_life == 0 and
+        ai_settings.enemy_tank_kamikaze_life == 0 and
+        ai_settings.enemy_tank_crazy_life == 0) or \
+            (cheats.input == cheats.cheat_next_level):
+        cheats.input = ""
+        time.sleep(5)
+        sv.dont_save()
+        current_level += 1
+        blocks = Block(screen, current_level, "dont save")
+        castle = Castle(screen)
+        castle_group = Group(castle)
+        player_tank = Player_tank(ai_settings, screen, "dont save")
+        enemy_tank_predator = Predator_tank(ai_settings, screen, bullets_enemy_tank_predator, "dont save")
+        enemy_tank_hulk = Hulk_tank(ai_settings, screen, bullets_enemy_tank_hulk, "dont save")
+        enemy_tank_kamikaze = Kamikaze_tank(ai_settings, screen, "dont save")
+        enemy_tank_crazy = Crazy_tank(ai_settings, screen, bullets_enemy_tank_crazy, "dont save")
+        all_tanks = Group(player_tank, enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze, enemy_tank_crazy)
+        ai_settings = Settings("dont save")
+    return ai_settings, all_tanks, blocks, castle, castle_group, current_level, enemy_tank_crazy, enemy_tank_hulk, \
+           enemy_tank_kamikaze, enemy_tank_predator, player_tank

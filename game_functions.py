@@ -10,7 +10,7 @@ import auto_save_system as sv
 def check_keydown_events(event, ai_settings, screen, player_tank, bullets_player,
                          enemy_tank_predator, enemy_tank_hulk, enemy_tank_kamikaze,
                          enemy_tank_crazy, current_level, blocks, cheats):
-    cheats.cheat_check(ai_settings, event)
+    cheats.cheat_input(ai_settings, event)
 
     if event.key == pygame.K_d or \
             event.key == pygame.K_RIGHT:
