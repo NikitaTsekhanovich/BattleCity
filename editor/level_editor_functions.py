@@ -74,7 +74,7 @@ def check_events(button_brick, button_froze, button_water,
 
 
 def save_game_field(game_field):
-    new_level = open(r"C:\Users\honor\source\repos\BattleCity\editor\new_level", "w")
+    new_level = open(r"editor\new_level", "w")
     for x in range(26):
         if x != 0:
             new_level.write("\n")
@@ -82,8 +82,8 @@ def save_game_field(game_field):
             new_level.write(game_field[x][y])
     new_level.close()
 
-    path = r'C:\Users\honor\source\repos\BattleCity\levels'
-    path_copy = r"C:\Users\honor\source\repos\BattleCity\editor"
+    path = r'levels'
+    path_copy = r"editor"
     folder = Path(path)
     if not folder.is_dir():
         raise ValueError(f"[{folder}] не существует или не является директорией")

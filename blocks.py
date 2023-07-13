@@ -9,7 +9,7 @@ class Block():
 
     def __init__(self, screen, current_level, save_data):
         self.screen = screen
-        self.path_file = Path(r"C:\Users\honor\source\repos\BattleCity\levels")
+        self.path_file = Path(r"levels")
         self.count_levels = sum(1 for x in self.path_file.iterdir())
 
         if current_level > self.count_levels:

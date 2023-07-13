@@ -7,7 +7,7 @@ class ButtonSteel(Sprite):
         super().__init__()
 
         sprites = pygame.transform.scale(pygame.image.load
-                                         (r"C:\Users\honor\source\repos\BattleCity\images\sprites.gif"), [192, 224])
+                                         (r"images\sprites.gif"), [192, 224])
         tile_images = sprites.subsurface(48 * 2, 72 * 2, 8 * 2, 8 * 2)
 
         self.screen = screen

@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 from pygame.sprite import Sprite
 
@@ -8,7 +10,7 @@ class ButtonBrick(Sprite):
 
         try:
             sprites = pygame.transform.scale(pygame.image.load
-                                         (r"C:\Users\honor\source\repos\BattleCity\images\sprites.gif"), [192, 224])
+                                         (r"images\sprites.gif"), [192, 224])
         except Exception:
             print("Поврежден файл игры")
             sys.exit()
